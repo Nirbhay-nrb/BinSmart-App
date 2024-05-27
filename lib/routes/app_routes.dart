@@ -1,3 +1,6 @@
+import 'package:binsmart/screens/cleaner_home.dart';
+import 'package:binsmart/screens/manager_home.dart';
+import 'package:binsmart/screens/resident_home.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/home_page.dart';
@@ -22,6 +25,12 @@ class AppRoutes {
             builder: (_) => RegisterPage(
                   user: userRole,
                 ));
+      case RouteNames.manager:
+        return MaterialPageRoute(builder: (_) => ManagerHomePage());
+      case RouteNames.cleaner:
+        return MaterialPageRoute(builder: (_) => CleanerHomePage());
+      case RouteNames.resident:
+        return MaterialPageRoute(builder: (_) => ResidentHomePage());
       default:
         return MaterialPageRoute<dynamic>(
           builder: (_) => Scaffold(

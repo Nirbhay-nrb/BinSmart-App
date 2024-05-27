@@ -11,4 +11,7 @@ const kLightBgColor = Color(0xffB2DFDB);
 const kRed = Color(0xffFF0000);
 const kGreen = Color(0xff00FF00);
 
-const Set<String> kUserType = {'Manager', 'Cleaner', 'Public'};
+const Set<String> kUserType = {'manager', 'cleaner', 'resident'};
+
+// for api calling
+const kApiURL = 'https://binsmart-backend.onrender.com';

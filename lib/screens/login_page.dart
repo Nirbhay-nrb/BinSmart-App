@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, use_build_context_synchronously
 
 import 'package:binsmart/constants.dart';
+import 'package:binsmart/providers/routes/auth.dart';
 import 'package:binsmart/routes/route_names.dart';
 import 'package:binsmart/widgets/button.dart';
+import 'package:binsmart/widgets/error_box.dart';
 import 'package:binsmart/widgets/input_field.dart';
 import 'package:binsmart/widgets/title.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final String user;
@@ -59,9 +62,9 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   InputField(
-                    hinttext: widget.user == 'Manager'
+                    hinttext: widget.user == 'manager'
                         ? 'Manager Email'
-                        : (widget.user == 'Cleaner'
+                        : (widget.user == 'cleaner'
                             ? 'Cleaner Email'
                             : 'Public User Email'),
                     keyboardType: TextInputType.emailAddress,
@@ -94,44 +97,40 @@ class _LoginPageState extends State<LoginPage> {
                     clr: kButtonColor,
                     onTap: () async {
                       print('$email : $password');
-                      // if (widget.userRole == 'caretaker') {
-                      //   if (email == 'john@gmail.com' && password == 'test123') {
-                      //     Navigator.pushNamed(context, RouteNames.caretakerpage);
-                      //   }
-                      // } else {
-                      //   if (email == 'shagun@gmail.com' && password == 'test123') {
-                      //     Navigator.pushNamed(context, RouteNames.userpage);
-                      //   }
-                      // }
-                      // sending the login request to the API
-                      // try {
-                      //   await Provider.of<Auth>(context, listen: false)
-                      //       .loginUser(email, password, widget.userRole);
-                      //   String id = Provider.of<Auth>(context, listen: false).id;
-                      //   print(id);
-                      //   if (id != '') {
-                      //     // navigating to the next page
-                      // widget.userRole == 'Caretaker'
-                      //     ? Navigator.pushNamed(
-                      //         context, RouteNames.caretakerpage)
-                      //     : Navigator.pushNamed(context, RouteNames.userpage);
-                      //   }
-                      // } catch (e) {
-                      //   print(e);
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) {
-                      //       return ErrorBox(
-                      //         errorText: e.toString(),
-                      //         onpressed: () {
-                      //           Navigator.pop(context);
-                      //         },
-                      //       );
-                      //     },
-                      //   );
-                      // }
-                      // clearing the fields
 
+                      // sending the login request to the API
+                      try {
+                        await Provider.of<Auth>(context, listen: false)
+                            .loginUser(email, password);
+                        String id =
+                            Provider.of<Auth>(context, listen: false).userId;
+                        if (id != '') {
+                          // navigating to the next page
+                          print('user ID on succesful login : $id');
+                          if (widget.user == 'manager') {
+                            Navigator.pushNamed(context, RouteNames.manager);
+                          } else if (widget.user == 'cleaner') {
+                            Navigator.pushNamed(context, RouteNames.cleaner);
+                          } else if (widget.user == 'resident') {
+                            Navigator.pushNamed(context, RouteNames.resident);
+                          }
+                        }
+                      } catch (e) {
+                        print(e);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ErrorBox(
+                              errorText: e.toString(),
+                              onpressed: () {
+                                Navigator.pop(context);
+                              },
+                            );
+                          },
+                        );
+                      }
+
+                      // clearing the fields
                       _usernameController.clear();
                       _passwordController.clear();
                     },
