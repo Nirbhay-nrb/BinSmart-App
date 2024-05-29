@@ -19,6 +19,7 @@ class Dustbin {
   String lastCleanedTime;
   String filledStatus;
   String cleanerId;
+  String dustbinId;
 
   Dustbin({
     required this.communityId,
@@ -27,5 +28,6 @@ class Dustbin {
     required this.lastCleanedTime,
     required this.filledStatus,
     required this.cleanerId,
+    required this.dustbinId,
   });
 }

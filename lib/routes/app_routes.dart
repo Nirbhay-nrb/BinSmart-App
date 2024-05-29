@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:binsmart/screens/cleaner_home.dart';
 import 'package:binsmart/screens/manager_home.dart';
 import 'package:binsmart/screens/resident_home.dart';

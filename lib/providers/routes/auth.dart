@@ -63,14 +63,14 @@ class Auth with ChangeNotifier {
           currentManager = Manager(
             userId: userId,
             name: data['user']['name'],
-            communityId: data['user']['communityId'],
+            communityId: data['user']['communityId'] ?? "",
           );
         } else if (role == 'cleaner') {
           print('inside cleaner');
           currentCleaner = Cleaner(
             userId: userId,
             name: data['user']['name'],
-            communityId: data['user']['communityId'],
+            communityId: data['user']['communityId'] ?? "",
           );
         } else if (role == 'resident') {
           print('inside resident');
